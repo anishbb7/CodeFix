@@ -1,6 +1,0 @@
-.editor-panel {
-  height: 100%;   /* 🔑 makes editor stretch full height */
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-}
