@@ -4,10 +4,9 @@
   "private": true,
   "description": "CodeFix - An AI-powered tool for code completion, debugging, and test case generation.",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "concurrently \"npm run start-frontend\" \"npm run start-backend\"",
+    "start-frontend": "react-scripts start",
+    "start-backend": "python App.py"
   },
   "dependencies": {
     "@monaco-editor/react": "^4.7.0",
@@ -26,5 +25,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.0"
   }
 }
