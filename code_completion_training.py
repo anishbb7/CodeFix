@@ -26,29 +26,11 @@ dataset = load_dataset('csv', data_files={
 print(dataset)
 print(dataset['train'].column_names)
 
-#no need to run
-dataset = load_dataset('csv', data_files={
-    'train': '/content/drive/MyDrive/debugging.csv',
-    'validation': '/content/drive/MyDrive/debugging.csv'
-})
-print(dataset)
-print(dataset['train'].column_names)
-
-#no need to run
-dataset = load_dataset('csv', data_files={
-    'train': '/content/drive/MyDrive/test_generation.csv',
-    'validation': '/content/drive/MyDrive/test_generation.csv'
-})
-print(dataset)
-print(dataset['train'].column_names)
 
 from datasets import load_dataset
 from transformers import AutoTokenizer, AutoModelForCausalLM, Trainer, TrainingArguments, DataCollatorForLanguageModeling
 import pandas as pd
 
-# =========================
-# CONFIGURATION
-# =========================
 model_checkpoint = "Salesforce/codegen-350M-multi"  # You can change this
 tokenizer = AutoTokenizer.from_pretrained(model_checkpoint)
 tokenizer.pad_token = tokenizer.eos_token  # For causal LM
@@ -59,22 +41,9 @@ dataset_configs = {
         "path": "/content/drive/MyDrive/code_completion.csv",
         "input_col": "input_set",
         "output_col": "output_set"
-    },
-    "bugfix": {
-        "path": "/content/drive/MyDrive/debugging.csv",
-        "input_col": "buggy_code",
-        "output_col": "corrected_code"
-    },
-    "testcase": {
-        "path": "/content/drive/MyDrive/test_generation.csv",
-        "input_col": "function",
-        "output_col": "test_case"
     }
 }
 
-# =========================
-# LOAD & TOKENIZE FUNCTION
-# =========================
 def load_and_tokenize(path, input_col, output_col):
     # Read CSV
     df = pd.read_csv(path)
@@ -98,9 +67,6 @@ def load_and_tokenize(path, input_col, output_col):
     tokenized_datasets = dataset.map(tokenize_function, batched=True, remove_columns=["text"])
     return tokenized_datasets
 
-# =========================
-# TRAINING FUNCTION
-# =========================
 def train_and_save(tokenized_datasets, save_dir):
     model = AutoModelForCausalLM.from_pretrained(model_checkpoint)
 
@@ -139,9 +105,6 @@ def train_and_save(tokenized_datasets, save_dir):
     tokenizer.save_pretrained(save_dir)
     print(f"✅ Model saved at {save_dir}")
 
-# =========================
-# TRAIN EACH MODEL
-# =========================
 print("\n===== Training Auto Code Completion Model =====")
 cfg = dataset_configs["completion"]
 dataset_completion = load_and_tokenize(cfg["path"], cfg["input_col"], cfg["output_col"])
