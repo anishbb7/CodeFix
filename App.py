@@ -85,7 +85,7 @@ async def completion(request: Request):
     code = data.get("code", "")
     language = data.get("language", "java")
     description = data.get("description", "")
-    validated = generate_with_codegen(model, tokenizer, code, max_length=1000, language=language)
+    validated = generate_with_codegen(completion_model, completion_tokenizer, code, max_length=1000, language=language)
     return {"result": validated["code"]}
 
 @app.post("/debugging")
@@ -94,7 +94,7 @@ async def debugging(request: Request):
     code = data.get("code", "")
     language = data.get("language", "java")
     description = data.get("description", "")
-    validated = generate_with_codet5(model, tokenizer, code, max_length=1000, language=language)
+    validated = generate_with_codet5(debugger_model, debugger_tokenizer, code, max_length=1000, language=language)
     return {"result": validated["code"]}
 
 @app.post("/testcase")
@@ -104,7 +104,7 @@ async def testcase(request: Request):
     language = data.get("language", "java")
     description = data.get("description", "")
     num_cases = data.get("num_cases", 5)
-    validated =  generate_with_codet5(model, tokenizer, code, max_length=1000, language=language)
+    validated =  generate_with_codet5(testcase_model, testcase_tokenizer, code, max_length=1000, language=language)
     return {"result": validated["code"]}
 
 
@@ -112,3 +112,4 @@ async def testcase(request: Request):
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8080)
+
