@@ -38,3 +38,15 @@
   -moz-user-select: none !important;
   -ms-user-select: none !important;
 }
+.app-header {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  background: #202123; /* dark header */
+  color: white;
+}
+
+.logo {
+  height: 40px;
+  margin-right: 10px;
+}
