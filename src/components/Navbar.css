@@ -38,3 +38,36 @@
   box-shadow: 0 2px 6px rgba(0, 122, 204, 0.5);
 }
 
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #202123; /* dark like ChatGPT */
+  color: white;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo {
+  height: 35px;
+  width: 35px;
+}
+
+.tabs button {
+  background: none;
+  border: none;
+  color: white;
+  margin-left: 15px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.tabs button.active {
+  border-bottom: 2px solid #10a37f; /* green highlight */
+  font-weight: bold;
+}
